@@ -14,9 +14,9 @@ create_minutely <- function(){
     duplicate_rno <- which(duplicated(index(df_xts)))  #remvove duplicates
     if(length(duplicate_rno) > 0 ){
       df_xts <- df_xts[-duplicate_rno,] }
-    sampled_df_xts <- resample_data_minutely(df_xts,1) # convert to hourly format
+    sampled_df_xts <- resample_data_minutely(df_xts,1) # convert to minutely format
     stopifnot(length(unique(lubridate::second(sampled_df_xts)))==1) # ensures series end at 0 seconds
-    write.csv(data.frame(timestamp=index(sampled_df_xts),power=round(coredata(sampled_df_xts),3)),file=paste0(parent,"/minutely/",x),row.names = FALSE)
+    write.csv(data.frame(timestamp=index(sampled_df_xts),power=round(coredata(sampled_df_xts),3)),file=paste0(parent,"minutely/",x),row.names = FALSE)
   })
 }
 
